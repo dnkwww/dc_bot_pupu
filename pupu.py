@@ -17,7 +17,7 @@ def calculate_n():
     now = datetime.datetime.now(tw)
 
     # 基準日(1/8)
-    base_date = datetime.datetime(now.year, 1, 8, tzinfo=tw)
+    base_date = datetime.datetime(2025, 1, 8, tzinfo=tw)
 
     # 計算相差的天數
     days_since_base = (now - base_date).days
