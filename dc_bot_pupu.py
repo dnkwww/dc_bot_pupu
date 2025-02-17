@@ -2,10 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import datetime
 import asyncio
-import requests
 import pytz
-import keep_alive
-import flask
 
 # 設定機器人
 intents = discord.Intents.all()
@@ -41,6 +38,7 @@ async def send_message():
     if channel:
         await channel.send(f"# 第{N}屆便便交流\n{date_str}( {weekday_str} )")
 
+# 固定發送訊息時間為早上6.
 async def wait_until_6am():
     tw = pytz.timezone("Asia/Taipei")  # 設定時區為台灣時間
     now = datetime.datetime.now(tw)
@@ -62,9 +60,6 @@ async def on_ready():
 @tasks.loop(hours=24)
 async def daily_message():
     await send_message()
-
-# 保持機器人在線
-keep_alive.keep_alive()
 
 bot.run("MTM0MDE5NDk5MjY2MDE1NjQyNw.GAYujv.hxDCzTiqv3_4ulJwDsqS2zuuTO2S9qi2efmrvs")
 
