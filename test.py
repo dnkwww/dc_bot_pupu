@@ -20,4 +20,3 @@ async def Hello(ctx):
     await ctx.send("Hello, world!")
 
 bot.run("MTM0MDE5NDk5MjY2MDE1NjQyNw.GwVb_A.EUpnZooXOLP7T17El08Mhtlv-LLY__aHrWHX-M")
-
