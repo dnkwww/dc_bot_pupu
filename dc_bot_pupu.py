@@ -13,24 +13,23 @@ bot = commands.Bot(command_prefix="%", intents=intents)
 
 CHANNEL_ID = 1326434015993135217
 
+# 計算今天是第幾屆(1/8第一屆)
 def calculate_n():
-    """計算今天是第幾屆（從 1 月 8 日開始計算）"""
-    tw = pytz.timezone("Asia/Taipei")  # 設定台灣時區
+    tw = pytz.timezone("Asia/Taipei")  # 設定時區為台灣時間
     now = datetime.datetime.now(tw)
 
-    # 基準日（第一屆是 1 月 8 日）
+    # 基準日(1/8)
     base_date = datetime.datetime(now.year, 1, 8, tzinfo=tw)
 
     # 計算相差的天數
     days_since_base = (now - base_date).days
 
-    # 計算 N（第幾屆），+1 因為 1/8 是第一屆
-    return days_since_base + 1  
+    # 因為1/8是第一屆，N=base+1
+    return days_since_base + 1
 
+# 發送訊息
 async def send_message():
-    """發送訊息到指定頻道"""
     N = calculate_n()  # 計算當前第幾屆
-
     tw = pytz.timezone("Asia/Taipei")  # 設定時區為台灣時間
     now = datetime.datetime.now(tw)
     date_str = now.strftime("%Y/%m/%d")
@@ -40,7 +39,7 @@ async def send_message():
 
     channel = bot.get_channel(CHANNEL_ID)
     if channel:
-        await channel.send(f"# 第{N}屆便便交流\n{date_str}( 星期{weekday_str} )")
+        await channel.send(f"# 第{N}屆便便交流\n{date_str}( {weekday_str} )")
 
 async def wait_until_6am():
     tw = pytz.timezone("Asia/Taipei")  # 設定時區為台灣時間
@@ -48,6 +47,7 @@ async def wait_until_6am():
     target = now.replace(hour=6, minute=0, second=0, microsecond=0)
     if now > target:  # 如果現在時間已經過了今天的6:00，則等待到明天的6:00
         target += datetime.timedelta(days=1)
+
     wait_time = (target - now).total_seconds()
     print(f"距離早上6:00 還有 {wait_time // 3600} 小時 {wait_time % 3600 // 60} 分鐘")
     await asyncio.sleep(wait_time)
