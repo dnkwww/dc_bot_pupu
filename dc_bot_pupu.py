@@ -7,6 +7,10 @@ import pytz
 # 設定機器人
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="%", intents=intents)
+<<<<<<< HEAD
+token = ""
+=======
+>>>>>>> parent of 98cf869 (Update dc_bot_pupu.py)
 
 CHANNEL_ID = 1326434015993135217
 
